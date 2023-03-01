@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-client
+  labels:
+    app: postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: astamia/postgresql-client:14
+        ports:
+        - containerPort: 80
+        env:
+          - name: PGDATABASE
+            value: database
+          - name: PGHOST
+            value: localhost
+          - name: PGPORT
+            value: 5432
+          - name: PGUSER
+            value: postgres
+          - name: PGPASSWORD
+            value: SuperSecret
